@@ -1,3 +1,5 @@
+# 🧬 Detection of tumor changes in breast histopathological images using deep learning
+
 ## 📚 Table of Contents
 
 - [🚀 Summary](#-summary)
@@ -20,6 +22,8 @@
 
 This project focuses on **detecting tumor-related changes** in **breast histopathological images** using **deep learning**. A **ResNet-18** classifier is trained on small RGB tissue patches extracted from whole-slide images (WSI). The workflow covers **dataset exploration**, **data augmentation**, **model training**, and **performance evaluation** using a confusion matrix, ROC curve, and key metrics such as **accuracy**, **precision**, **sensitivity**, **specificity**, and **F1-score**.
 
+
+This work also served as the basis for a scientific publication: [*Towards sustainable health - detection of tumor changes in breast histopathological images using deep learning*](https://www.sciencedirect.com/science/article/pii/S1877050922011073)
 
 ## 📝 Project Description
 
