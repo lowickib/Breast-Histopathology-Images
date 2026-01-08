@@ -1,4 +1,5 @@
 .DS_Store
 .env
 data/raw_dataset
-
+resources
+Readme.md
