@@ -30,7 +30,6 @@ The goal of the project is to build a machine learning system capable of **class
 The following tools and libraries were used in this project:
 
 - **Python**
-- **Jupyter Notebook**
 - **NumPy**
 - **Pandas**
 - **Matplotlib**
