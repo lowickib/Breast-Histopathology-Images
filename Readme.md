@@ -1,4 +1,31 @@
-## Technologies Used
+## 📚 Table of Contents
+
+- [🚀 Summary](#-summary)
+- [📝 Project Description](#-project-description)
+- [🛠️ Technologies Used](#️-technologies-used)
+- [📁 Training Data Description](#-training-data-description)
+- [📊 Data Analysis](#-data-analysis)
+  - [🧾 Sample distribution](#-sample-distribution)
+  - [🦠 Percentage of sick samples](#-percentage-of-sick-samples)
+  - [👤 Samples per patient](#-samples-per-patient)
+  - [🎨 Pixel distribution](#-pixel-distribution)
+- [🤖 Machine Learning Model](#-machine-learning-model)
+  - [🏗️ Network Architecture](#️-network-architecture)
+- [📈 Results Analysis](#-results-analysis)
+  - [🧩 Confusion matrix](#-confusion-matrix)
+  - [📉 ROC curve](#-roc-curve)
+- [✅ Conclusions](#-conclusions)
+
+## 🚀 Summary
+
+This project focuses on **detecting tumor-related changes** in **breast histopathological images** using **deep learning**. A **ResNet-18** classifier is trained on small RGB tissue patches extracted from whole-slide images (WSI). The workflow covers **dataset exploration**, **data augmentation**, **model training**, and **performance evaluation** using a confusion matrix, ROC curve, and key metrics such as **accuracy**, **precision**, **sensitivity**, **specificity**, and **F1-score**.
+
+
+## 📝 Project Description
+
+The goal of the project is to build a machine learning system capable of **classifying histopathological tissue patches** as **healthy (class 0)** or **cancerous (class 1)**. The dataset consists of 50×50 RGB patches extracted from H&E-stained WSIs. The model is designed to support the diagnostic process by enabling predictions on **small regions of tissue**, which can help detect **small disease foci** that may be missed during holistic manual assessment.
+
+## 🛠️ Technologies Used
 
 The following tools and libraries were used in this project:
 
@@ -12,7 +39,7 @@ The following tools and libraries were used in this project:
 - **PyTorch**
 
 
-## Training Data Description
+## 📁 Training Data Description
 
 The dataset used in this project is called *“Breast Histopathology Images”* and comes from [Kaggle.com](https://www.kaggle.com/datasets/paultimothymooney/breast-histopathology-images)
 . It was created based on **163** breast histopathology whole-slide images stained with **H&E** and scanned using a **WSI scanner** at **40× magnification**. By splitting these images, **RGB patches** of size **50×50 pixels** were obtained. In total, this resulted in **277,524** samples, of which **198,738** were labeled as **healthy**, while **78,786** were labeled as **cancerous**.
@@ -43,9 +70,9 @@ The reconstructions created in this way are shown below:
 
 *Tissue images after merging their component patches: (a) tissues without disease information, (b) tissues with marked tumor regions.* 
 
-## Data Analysis
+## 📊 Data Analysis
 
-### Sample distribution
+### 🧾 Sample distribution
 
 As mentioned earlier, the data comes from the *“Breast Histopathology Images”* dataset. It contains data from **279 patients**. In total, there are **277,524** samples available, among which **198,738** are classified as **healthy**, and **78,786** samples are classified as **cancerous**. 
 The distribution of samples is shown below:
@@ -57,7 +84,7 @@ The distribution of samples is shown below:
 
 The histogram shows that healthy samples make up **71.6%** of the entire dataset, while cancerous samples account for **28.4%**. Such a disproportion—where healthy samples significantly outnumber cancerous samples—leads to a problem known as **class imbalance**. This characteristic must be taken into account when building a machine learning model and during its later evaluation, because the algorithm may prefer predicting the more frequent class.
 
-### Percentage of sick samples
+### 🦠 Percentage of sick samples
 
 The next step in the analysis was to verify how large a portion of each patient’s tissue is covered by cancerous areas. The results are presented below:
 
@@ -67,7 +94,7 @@ The next step in the analysis was to verify how large a portion of each patient�
 
 The histogram indicates that most patient tissues contain about **20–30%** cancerous patches. The mean value is **30.8%**, and the median is approximately **26.6%**. It is also worth noting that some patients have tissues where more than **80%** of patches are cancerous. This may indicate a very late stage of the disease or inaccurate data acquisition, for example, if the WSI image was taken only for a part of the tissue.
 
-### Samples per patient
+### 👤 Samples per patient
 
 Another element analyzed was the number of samples per patient. This is shown here:
 
@@ -77,7 +104,7 @@ Another element analyzed was the number of samples per patient. This is shown he
 
 It can be seen that most patients have around **1,000** samples. The average number of samples is **994.7**, and the median is **967** samples. Moreover, more than **60** patients have fewer than **500** samples, which may result from differences in image resolution or partial data loss. Another reason may be the earlier assumption about removing adipose tissue regions, which could suggest that patients with a small number of samples had a high amount of fat in the tissue.
 
-### Pixel distribution
+### 🎨 Pixel distribution
 
 The next stage of the analysis was to examine the distribution of pixel intensities in randomly selected healthy and cancerous samples. 
 
@@ -95,7 +122,7 @@ The next stage of the analysis was to examine the distribution of pixel intensit
 
 A comparison of both sample types shows that healthy samples have a significant dominance of **red-channel pixels** compared to the **blue** and **green** channels. It can be seen that the number of red pixels is roughly **twice** as large as the number of blue and green pixels. In contrast, in cancerous samples, red pixels are comparable to green and blue pixels, and they may even become the minority. The described pixel distribution results in healthy tissues having a colour ranging from light red to pink, while diseased tissues have a purple hue.
 
-## Machine Learning Model
+## 🤖 Machine Learning Model
 
 From the perspective of correctly designing a system for tumor detection in histopathological images, it was necessary to split the dataset. The dataset was divided in a **60:20:20** ratio, where **60%** of the data was used for **training**, **20%** for **model validation**, and **20%** for the **final testing** of the system. 
 
@@ -113,7 +140,7 @@ To increase the amount of data in the training set, **data augmentation** was ap
 In the presented figure, the previously discussed randomness of flips can be observed: samples in columns **2, 3, and 5** contain **both flips**, while columns **1 and 4** present only a **vertical flip**. In the shown set of samples, no case of a standalone **horizontal flip** was observed. It should also be emphasized that data augmentation was used **only for training purposes**. Validation samples should reflect real examples as closely as possible, therefore they must not undergo any processes that alter their appearance.
 
 
-### Network Architecture
+### 🏗️ Network Architecture
 
 In the described tumor change detection system, the **ResNet-18** model was used, which is the baseline network within the ResNet family. The main argument for choosing a relatively shallow network was that, in this project, the model does not need to recognize highly abstract, high-level features. In practice, the network is expected to analyze the **cellular structure** of tissue and its **color**, which largely relies on detecting **image contours and local patterns**. In addition, a smaller network requires less computational power.
 
@@ -131,9 +158,9 @@ At the end of the network, a **reduction layer** performs averaging of the outpu
 The presented architecture includes both types of skip connections described earlier: **solid lines** indicate direct shortcut connections, while **dashed lines** represent shortcut connections that include an additional convolutional layer.
 
 
-## Results Analysis
+## 📈 Results Analysis
 
-### Confusion matrix
+### 🧩 Confusion matrix
 
 The final verification of the classifier was performed on the previously separated **test set**, which was not used for either training or validation. This makes it possible to evaluate the model on unseen data and assess its ability to generalize. The primary tool used for model validation is the **confusion matrix**, and its values for the tumor tissue classification model are shown here:
 
@@ -191,7 +218,7 @@ $$
 = 0.887
 $$
 
-### ROC curve
+### 📉 ROC curve
 
 A popular way to present model performance is the **ROC curve** (*ROC – Receiver Operating Characteristic*), which visualizes the classifier quality by showing the relationship between **TPR** (true positive rate: correctly classifying a truly cancerous sample) and **FPR** (false positive rate: incorrectly classifying a truly healthy sample as cancerous). Figure below presents the ROC curve for the proposed model and its comparison with a random classifier.
 
@@ -202,7 +229,7 @@ A popular way to present model performance is the **ROC curve** (*ROC – Receiv
 In theory, the more convex the ROC curve is and the closer it runs to the point **(0.0, 1.0)**, the better the classifier. The presented plot shows that the designed model lies relatively close to **(0.0, 1.0)**, which indicates good performance. Closely related to the ROC curve is the **AUC** (*AUC – Area Under the ROC Curve*), which represents the area under the ROC curve. Its value ranges from **0** to **1**, where **1** corresponds to a perfect classifier. The built classifier achieved an **AUC of 0.92**, which further supports its effective performance in classifying tissue samples.
 
 
-## Conclusions
+## ✅ Conclusions
 
 To summarize the obtained results, several conclusions can be drawn regarding the constructed classifier. Due to the medical nature of the task, analyzing **sensitivity** is essential, because it shows whether cancerous cases will indeed be classified as cancerous. In theory, it is better for sensitivity to be higher than specificity, because in such a scenario the model is more likely to classify hard-to-decide samples as cancerous. This approach has a lower cost of errors, because if a healthy sample is classified as cancerous, the patient will undergo additional examinations that will ultimately confirm a false diagnosis. In the second case—when a cancerous sample is classified as healthy—the patient will most likely leave the healthcare facility and return only at an advanced stage of the disease, which would lead to poor prognosis and reduced chances of recovery.
 
