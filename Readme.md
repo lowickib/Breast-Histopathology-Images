@@ -82,7 +82,7 @@ The distribution of samples is shown below:
 
 ![Sample distribution in the full dataset](/resources/samples_distibution.png) 
 
-*Distribution of samples in the entire dataset. *
+*Distribution of samples in the entire dataset*
 
 
 The histogram shows that healthy samples make up **71.6%** of the entire dataset, while cancerous samples account for **28.4%**. Such a disproportion—where healthy samples significantly outnumber cancerous samples—leads to a problem known as **class imbalance**. This characteristic must be taken into account when building a machine learning model and during its later evaluation, because the algorithm may prefer predicting the more frequent class.
